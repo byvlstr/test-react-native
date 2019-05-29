@@ -1,4 +1,6 @@
 {
   "name": "Beeflix",
-  "displayName": "Beeflix"
+  "displayName": "Beeflix",
+  "omdbApiUrl": "http://www.omdbapi.com/",
+  "omdbApiKey": "1c1e0477"
 }

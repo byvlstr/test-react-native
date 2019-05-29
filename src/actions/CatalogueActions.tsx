@@ -1,0 +1,24 @@
+import { Type } from "./Type";
+import { Movie } from "../common/movie";
+import { Actions } from "react-native-router-flux";
+import { omdbApiKey as apiKey } from '../../app.json'
+import { omdbApiUrl as url } from '../../app.json'
+import axios from 'axios';
+
+export const fetchMovies = (searchText: string) => {
+    return (dispatch: any) => {
+        axios.get(url, {
+            params: {
+                'apikey': apiKey,
+                's': searchText
+            }
+        }).then((data) => {
+            console.log(data)
+            dispatch({
+                type: Type.LOAD_MOVIES_SUCCESS,
+                payload: data
+            })   
+        })
+        .catch((error) => console.log(error));
+    };
+};
