@@ -11,6 +11,7 @@
     "axios": "^0.18.0",
     "react": "16.8.3",
     "react-native": "0.59.8",
+    "react-native-responsive-fontsize": "^0.1.8",
     "react-native-router-flux": "^4.0.6",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",

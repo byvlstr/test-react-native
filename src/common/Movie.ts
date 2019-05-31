@@ -6,7 +6,7 @@ export interface Movie {
     imdbID: string
 }
 
-enum MovieType {
+export enum MovieType {
     SERIES = 'series',
     MOVIE = 'movie',
     EPISODE = 'episode'
