@@ -1,6 +1,5 @@
 import { Type } from "./Type";
-import { Movie, MovieType } from "../common/movie";
-import { Actions } from "react-native-router-flux";
+import { MovieType } from "../common/movie";
 import { omdbApiKey as apiKey } from '../../app.json'
 import { omdbApiUrl as url } from '../../app.json'
 import axios from 'axios';
@@ -21,7 +20,7 @@ export const fetchMovies = (searchText: string, year: number, type: MovieType) =
                     category: searchText,
                     data: result
                 }
-            })   
+            });   
         })
         .catch((error) => console.log(error));
     };

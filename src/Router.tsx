@@ -2,7 +2,7 @@ import { Component } from "react";
 import React from "react";
 import { Router, Stack, Scene } from 'react-native-router-flux'
 import Catalogue from "./components/Catalogue";
-import { StyleSheet } from "react-native";
+import MovieDetail from "./components/MovieDetail";
 
 export default class RouterComponent extends Component {    
 
@@ -16,11 +16,15 @@ export default class RouterComponent extends Component {
                             rightButtonImage={require('./public/img/fav.png')}
                             onRight={() => console.log('Favourites')}
                     />
+                    <Scene  key="moviedetail" component={MovieDetail}
+                            headerTintColor="#fff"
+                            navigationBarStyle={styles.beeflixStyle}
+                            titleStyle={styles.movieDetailTitleStyle}
+                    />
                 </Stack>
             </Router>
         )
     }
-
 }
 
 const styles = {
@@ -30,5 +34,9 @@ const styles = {
 
     titleStyle: {
         color: '#f00'
+    },
+
+    movieDetailTitleStyle: {
+        color: '#fff'
     }
 } 

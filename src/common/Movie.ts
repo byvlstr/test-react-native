@@ -3,7 +3,15 @@ export interface Movie {
     Title: string,
     Type: MovieType,
     Year: string,
-    imdbID: string
+    imdbID: string,
+
+    Runtime: string,
+    Country: string,
+    Director: string,
+    Actors: string,
+    imdbRating: string,
+    Plot: string,
+    Language: string
 }
 
 export enum MovieType {

@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Text, SectionList, FlatList, View, TouchableNativeFeedback, Image, TouchableHighlight } from "react-native";
 import React from "react";
 import { connect } from "react-redux";
-import { fetchMovies } from '../actions'
+import { fetchMovies, selectMovie } from '../actions'
 import { MovieType, Movie } from "../common/Movie";
 import { Category, MovieCategory } from "../common/Category";
 import { styles } from "../styles/CatalogueStyles";
@@ -18,7 +18,6 @@ class Catalogue extends Component<Props> {
     }
 
     renderMovieItem(item: Movie): JSX.Element {
-        console.log(item)
         return (
             <TouchableHighlight onPress={() => this.onMovieItemClick(item)}>
                 <View style={styles.movieItem}>
@@ -44,7 +43,7 @@ class Catalogue extends Component<Props> {
     }
 
     onMovieItemClick(item: Movie) {
-        console.log(item)
+        this.props.selectMovie(item);
     }
 
     renderCategoryMovieList(category: Category): JSX.Element {
@@ -97,7 +96,8 @@ const sections = categories.map(category => {
 })
 
 interface Props {
-    fetchMovies(searchText: string, year: number, type: MovieType): any
+    fetchMovies(searchText: string, year: number, type: MovieType): any,
+    selectMovie(movie: Movie): any,
     movies: Map<MovieCategory, Movie[]>
 }
 
@@ -107,5 +107,5 @@ const mapStateToProps = (state: any) => {
     };
 };
   
-export default connect(mapStateToProps, { fetchMovies })(Catalogue);
+export default connect(mapStateToProps, { fetchMovies, selectMovie })(Catalogue);
 
