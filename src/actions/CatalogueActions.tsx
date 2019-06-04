@@ -14,11 +14,13 @@ export const fetchMovies = (searchText: string, year: number, type: MovieType) =
                 'y': year,
                 'type': type.valueOf()
             }
-        }).then((data) => {
-            console.log(data)
+        }).then((result) => {
             dispatch({
                 type: Type.LOAD_MOVIES_SUCCESS,
-                payload: data
+                payload: {
+                    category: searchText,
+                    data: result
+                }
             })   
         })
         .catch((error) => console.log(error));

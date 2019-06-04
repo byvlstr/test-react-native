@@ -1,11 +1,10 @@
 import { Component } from "react";
-import { Text, SectionList, FlatList, View, TouchableNativeFeedback } from "react-native";
+import { Text, SectionList, FlatList, View, TouchableNativeFeedback, Image, TouchableHighlight } from "react-native";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchMovies } from '../actions'
-import { State } from "../common/State";
 import { MovieType, Movie } from "../common/Movie";
-import { Category } from "../common/Category";
+import { Category, MovieCategory } from "../common/Category";
 import RF from "react-native-responsive-fontsize"
 
 class Catalogue extends Component<Props> {
@@ -15,35 +14,64 @@ class Catalogue extends Component<Props> {
     }
 
     componentWillMount() {
-        this.props.fetchMovies('star', 2018, MovieType.MOVIE);
+        categories.forEach(category => this.props.fetchMovies(category.subject, category.year, category.type))
     }
 
-    renderMovieItem(item, index): JSX.Element {
+    renderMovieItem(item: Movie): JSX.Element {
+        console.log(item)
         return (
-            <View style={styles.movieItem}>
-
-            </View>
+            <TouchableHighlight onPress={() => this.onMovieItemClick(item)}>
+                <View style={styles.movieItem}>
+                    {this.renderMovieItemContent(item)}
+                </View>
+            </TouchableHighlight>
         )
     }
 
-    renderCategoryMovieList(item, index, section): JSX.Element {
-        return (
-            <FlatList
-                horizontal
-                data={this.props.movies}
-                renderItem={({item, index}) => this.renderMovieItem(item, index)}
-                keyExtractor={(item, index) => item.imdbID}
-            />
-        )
+    renderMovieItemContent(item: Movie): JSX.Element {
+        if (item.Poster && item.Poster !== 'N/A') {
+            return (
+                <Image
+                    style={{flex: 1}}
+                    source={{uri: item.Poster}}
+                />
+            )
+        } else {
+            return (
+                <Text style={styles.movieTitle} numberOfLines={3} ellipsizeMode="tail">{item.Title}</Text>
+            )
+        }
+    }
+
+    onMovieItemClick(item: Movie) {
+        console.log(item)
+    }
+
+    renderCategoryMovieList(category: Category): JSX.Element {
+        const currentMovieList = this.props.movies.get(category.subject);
+        if (currentMovieList) {
+            return (
+                <FlatList
+                    horizontal
+                    data={currentMovieList}
+                    renderItem={({item}) => this.renderMovieItem(item)}
+                    keyExtractor={(item: Movie) => item.imdbID}
+                />
+            )
+        } else {
+            return (
+                <Text style={styles.missingMovie}>Oops... Currently no movie in here!</Text>
+            )
+        }
     }
 
     render(): JSX.Element {
         return (
             <View>
                 <SectionList
-                    renderItem={({item, index, section}) => this.renderCategoryMovieList(item, index, section)}
-                    renderSectionHeader={({section: {title, data}}) => (
-                        <View style={{marginTop: 16}}>
+                    renderItem={({item}) => this.renderCategoryMovieList(item)}
+                    renderSectionHeader={({section: {title}}) => (
+                        <View>
                             <Text style={styles.sectionTitle}>{title}</Text>
                         </View>
                     )}
@@ -56,10 +84,11 @@ class Catalogue extends Component<Props> {
 }
 
 const categories: Category[] = [
-    {subject: 'Star', year: 2018, type: MovieType.MOVIE}, 
-    {subject: 'Bee', year: 2015, type: MovieType.MOVIE},
-    {subject: 'Hope', year: 2017, type: MovieType.MOVIE},
-    {subject: 'Battle', year: 2000, type: MovieType.MOVIE},
+    {subject: MovieCategory.STAR, year: 2018, type: MovieType.MOVIE}, 
+    {subject: MovieCategory.BEE, year: 2015, type: MovieType.MOVIE},
+    {subject: MovieCategory.HOPE, year: 2017, type: MovieType.MOVIE},
+    {subject: MovieCategory.BATTLE, year: 2000, type: MovieType.MOVIE},
+    {subject: MovieCategory.SUN, year: 2004, type: MovieType.MOVIE},
 ]
 
 const sections = categories.map(category => {
@@ -69,7 +98,7 @@ const sections = categories.map(category => {
 
 interface Props {
     fetchMovies(searchText: string, year: number, type: MovieType): any
-    movies: Movie[]
+    movies: Map<MovieCategory, Movie[]>
 }
 
 const mapStateToProps = (state: any) => {
@@ -85,14 +114,26 @@ const styles = {
         fontWeight: 'bold',
         color: '#fff',
         fontSize: RF(3),
-        marginBottom: 8
+        marginBottom: 8,
+        marginTop: 16,
+        marginLeft: 8
     },
 
     movieItem: {
         width: 100,
         height: 150,
-        backgroundColor: '#f00',
+        backgroundColor: '#2c2c2c',
         marginRight: 8,
         marginBottom: 8
+    },
+
+    missingMovie: {
+        color: '#fff',
+        marginLeft: 8
+    },
+
+    movieTitle: {
+        color: '#fff',
+        margin: 16
     }
 }

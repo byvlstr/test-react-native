@@ -14,7 +14,7 @@ export default class RouterComponent extends Component {
                             navigationBarStyle={styles.beeflixStyle}
                             titleStyle={styles.titleStyle}
                             rightButtonImage={require('./public/img/fav.png')}
-                            onRight={() => console.log('sds')}
+                            onRight={() => console.log('Favourites')}
                     />
                 </Stack>
             </Router>
