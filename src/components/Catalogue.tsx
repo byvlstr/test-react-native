@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { fetchMovies } from '../actions'
 import { MovieType, Movie } from "../common/Movie";
 import { Category, MovieCategory } from "../common/Category";
-import RF from "react-native-responsive-fontsize"
+import { styles } from "../styles/CatalogueStyles";
 
 class Catalogue extends Component<Props> {
 
@@ -109,31 +109,3 @@ const mapStateToProps = (state: any) => {
   
 export default connect(mapStateToProps, { fetchMovies })(Catalogue);
 
-const styles = {
-    sectionTitle: {
-        fontWeight: 'bold',
-        color: '#fff',
-        fontSize: RF(3),
-        marginBottom: 8,
-        marginTop: 16,
-        marginLeft: 8
-    },
-
-    movieItem: {
-        width: 100,
-        height: 150,
-        backgroundColor: '#2c2c2c',
-        marginRight: 8,
-        marginBottom: 8
-    },
-
-    missingMovie: {
-        color: '#fff',
-        marginLeft: 8
-    },
-
-    movieTitle: {
-        color: '#fff',
-        margin: 16
-    }
-}
