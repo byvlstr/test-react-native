@@ -37,7 +37,8 @@ export const styles = {
     countryContainer: {
         flexDirection: 'row',
         marginLeft: 16,
-        marginTop: 32
+        marginTop: 32,
+        width: 128
     },
 
     ratingContainer: {
@@ -69,5 +70,9 @@ export const styles = {
         alignItems: 'center' ,
         marginTop: 16,
         marginBottom: 8
+    },
+
+    languageLabel: {
+        width: 88
     }
 }

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Text, View, Image, Button } from "react-native";
+import { Text, View, Image, Button, ScrollView } from "react-native";
 import React from "react";
 import { connect } from "react-redux";
 import { Movie } from "../common/movie";
@@ -44,7 +44,7 @@ class MovieDetail extends Component<Props> {
                         <View style={styles.yearRuntimeLine}>
                             <Text style={[styles.whiteText, styles.releaseYear]}>{this.props.movie.Year}</Text>
                             <View style={styles.fillEmptySpace} />
-                            <Text style={[styles.whiteText]}>{this.props.movie.Language}</Text>
+                            <Text style={[styles.whiteText, styles.languageLabel]} numberOfLines={1} ellipsizeMode="tail">{this.props.movie.Language}</Text>
                             <View style={styles.fillEmptySpace} />
                             <Text style={[styles.whiteText, styles.runtime]}>{this.props.movie.Runtime}</Text>
                         </View>
@@ -70,7 +70,10 @@ class MovieDetail extends Component<Props> {
 
                 <Text style={[styles.whiteText, styles.actorsContainer, styles.descriptionTexts]}>With: {this.props.movie.Actors}</Text>
                 <Text style={[styles.whiteText, styles.descriptionTexts]}>Director: {this.props.movie.Director}</Text>
-                <Text style={[styles.whiteText, styles.plotContainer, styles.descriptionTexts]}>{this.props.movie.Plot}</Text>
+
+                <ScrollView>
+                    <Text style={[styles.whiteText, styles.plotContainer, styles.descriptionTexts]}>{this.props.movie.Plot}</Text>
+                </ScrollView>
             </View>
         )
     }
