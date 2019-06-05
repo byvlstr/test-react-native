@@ -1,8 +1,9 @@
 import { Component } from "react";
 import React from "react";
-import { Router, Stack, Scene } from 'react-native-router-flux'
+import { Router, Stack, Scene, Actions } from 'react-native-router-flux'
 import Catalogue from "./components/Catalogue";
 import MovieDetail from "./components/MovieDetail";
+import Wishlist from "./components/Wishlist";
 
 export default class RouterComponent extends Component {    
 
@@ -14,16 +15,26 @@ export default class RouterComponent extends Component {
                             navigationBarStyle={styles.beeflixStyle}
                             titleStyle={styles.titleStyle}
                             rightButtonImage={require('./public/img/fav.png')}
-                            onRight={() => console.log('Favourites')}
+                            onRight={() => this.onWishlistButtonClick()}
                     />
                     <Scene  key="moviedetail" component={MovieDetail}
                             headerTintColor="#fff"
                             navigationBarStyle={styles.beeflixStyle}
-                            titleStyle={styles.movieDetailTitleStyle}
+                            titleStyle={styles.whiteTitleStyle}
+                    />
+                    <Scene  key="wishlist" component={Wishlist}
+                            headerTintColor="#fff"
+                            title="Wishlist"
+                            navigationBarStyle={styles.beeflixStyle}
+                            titleStyle={styles.whiteTitleStyle}
                     />
                 </Stack>
             </Router>
         )
+    }
+
+    onWishlistButtonClick() {
+        Actions.wishlist();
     }
 }
 
@@ -36,7 +47,7 @@ const styles = {
         color: '#f00'
     },
 
-    movieDetailTitleStyle: {
+    whiteTitleStyle: {
         color: '#fff'
     }
 } 

@@ -4,11 +4,36 @@ import React from "react";
 import { connect } from "react-redux";
 import { Movie } from "../common/movie";
 import { styles } from "../styles/MovieDetailStyles";
+import { addToWishlist } from '../actions'
+import WishlistReducer from "../reducers/WishlistReducer";
 
 class MovieDetail extends Component<Props> {
 
-    constructor(props: any) {
+    constructor(props: Props) {
         super(props)
+    }
+
+    addMovieToWishlist() {
+        this.props.addToWishlist(this.props.movie);
+    }
+
+    renderWishlistButton() {
+        var buttonLabel = 'Add to my list';
+        var buttonDisabled = false;
+
+        if (this.props.wishlist.find(movie => movie.imdbID === this.props.movie.imdbID)) {
+            buttonLabel = 'Added to list';
+            buttonDisabled = true;
+        }
+        
+        return (
+            <Button
+                onPress={() => this.addMovieToWishlist()}
+                title={buttonLabel}
+                color="#2c2c2c"
+                disabled={buttonDisabled}
+            />
+        )
     }
 
     render(): JSX.Element {
@@ -32,11 +57,7 @@ class MovieDetail extends Component<Props> {
                             <Text style={[styles.whiteText, styles.iconLabelMargin]}>{this.props.movie.imdbRating}</Text>
                         </View>
                         <View style={styles.addToListButton}>
-                            <Button
-                                onPress={() => console.log('')}
-                                title="Add to my list"
-                                color="#2c2c2c"
-                            />
+                            {this.renderWishlistButton()}
                         </View>
                     </View>
                     <View style={styles.movieItem}>
@@ -56,14 +77,17 @@ class MovieDetail extends Component<Props> {
 }
 
 interface Props {
-    movie: Movie
+    movie: Movie,
+    addToWishlist(movie: Movie): any,
+    wishlist: Movie[]
 }
 
 const mapStateToProps = (state: any) => {
     return {
-        movie: state.moviedetail.selectedMovie
+        movie: state.moviedetail.selectedMovie,
+        wishlist: state.wishlist.wishlist
     };
 };
   
-export default connect(mapStateToProps, { })(MovieDetail);
+export default connect(mapStateToProps, { addToWishlist })(MovieDetail);
 
