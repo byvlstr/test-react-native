@@ -2,10 +2,11 @@ import { Component } from "react";
 import { Text, SectionList, FlatList, View, TouchableNativeFeedback, Image, TouchableHighlight } from "react-native";
 import React from "react";
 import { connect } from "react-redux";
-import { fetchMovies, selectMovie } from '../actions'
+import { fetchMovies, selectMovie, addToWishlist } from '../actions'
 import { MovieType, Movie } from "../common/Movie";
 import { Category, MovieCategory } from "../common/Category";
 import { styles } from "../styles/CatalogueStyles";
+import MovieItem from "./MovieItem";
 
 class Catalogue extends Component<Props> {
 
@@ -18,28 +19,10 @@ class Catalogue extends Component<Props> {
     }
 
     renderMovieItem(item: Movie): JSX.Element {
-        return (
-            <TouchableHighlight onPress={() => this.onMovieItemClick(item)}>
-                <View style={styles.movieItem}>
-                    {this.renderMovieItemContent(item)}
-                </View>
-            </TouchableHighlight>
-        )
-    }
 
-    renderMovieItemContent(item: Movie): JSX.Element {
-        if (item.Poster && item.Poster !== 'N/A') {
-            return (
-                <Image
-                    style={{flex: 1}}
-                    source={{uri: item.Poster}}
-                />
-            )
-        } else {
-            return (
-                <Text style={styles.movieTitle} numberOfLines={3} ellipsizeMode="tail">{item.Title}</Text>
-            )
-        }
+        return (
+            <MovieItem movie={item} onMovieItemClick={this.props.selectMovie}></MovieItem>
+        );
     }
 
     onMovieItemClick(item: Movie) {
