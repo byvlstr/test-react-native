@@ -17,3 +17,9 @@ A small test app with React Native mocking the main Netflix UI, double scroll, w
 - omdb API 
 
 # Preview
+
+<img src="https://github.com/byvlstr/test-react-native/blob/master/src/public/preview/catalogue.png" width=200 align=left>
+
+<img src="https://github.com/byvlstr/test-react-native/blob/master/src/public/preview/detail.png" width=200 align=left>
+
+<img src="https://github.com/byvlstr/test-react-native/blob/master/src/public/preview/wishlist.png" width=200 align=left>
