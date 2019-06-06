@@ -26,7 +26,8 @@ class MovieItem extends Component<Props> {
 
     render() {
         return (
-            <TouchableHighlight onPress={() => this.props.onMovieItemClick(this.props.movie)}>
+            <TouchableHighlight onPress={() => this.props.onMovieItemClick(this.props.movie)}
+                                onLongPress={() => this.props.onMovieLongPress(this.props.movie)}>
                 <View style={styles.movieItem}>
                     {this.renderMovieItemContent(this.props.movie)}
                 </View>
@@ -37,7 +38,8 @@ class MovieItem extends Component<Props> {
 
 interface Props {
     movie: Movie,
-    onMovieItemClick: any
+    onMovieItemClick: any,
+    onMovieLongPress: any
 }
 
 export default MovieItem;

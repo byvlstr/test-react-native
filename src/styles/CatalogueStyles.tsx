@@ -2,7 +2,7 @@ import RF from "react-native-responsive-fontsize"
 
 export const styles = {
     sectionTitle: {
-        fontWeight: 'bold',
+        fontWeight: "bold",
         color: '#fff',
         fontSize: RF(3),
         marginBottom: 8,

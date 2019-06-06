@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Text, SectionList, FlatList, View, TouchableNativeFeedback, Image, TouchableHighlight } from "react-native";
+import { Text, SectionList, FlatList, View } from "react-native";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchMovies, selectMovie, addToWishlist } from '../actions'
@@ -28,7 +28,7 @@ class Catalogue extends Component<Props> {
 
     renderMovieItem(item: Movie): JSX.Element {
         return (
-            <MovieItem movie={item} onMovieItemClick={this.props.selectMovie}></MovieItem>
+            <MovieItem movie={item} onMovieItemClick={this.props.selectMovie} onMovieLongPress={this.props.addToWishlist} />
         );
     }
 
@@ -100,7 +100,8 @@ interface Props {
     fetchMovies(searchText: string, year: number, type: MovieType, page?: number): any,
     selectMovie(movie: Movie): any,
     movies: Map<MovieCategory, Movie[]>,
-    pages: Map<MovieCategory, number>
+    pages: Map<MovieCategory, number>,
+    addToWishlist(movie: Movie): any
 }
 
 const mapStateToProps = (state: any) => {
@@ -110,5 +111,5 @@ const mapStateToProps = (state: any) => {
     };
 };
   
-export default connect(mapStateToProps, { fetchMovies, selectMovie })(Catalogue);
+export default connect(mapStateToProps, { fetchMovies, selectMovie, addToWishlist })(Catalogue);
 
