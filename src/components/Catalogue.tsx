@@ -10,16 +10,23 @@ import MovieItem from "./MovieItem";
 
 class Catalogue extends Component<Props> {
 
+    loadingPages: Map<MovieCategory, number> = new Map<MovieCategory, number>();
+
     constructor(props: any) {
         super(props)
     }
 
     componentWillMount() {
-        categories.forEach(category => this.props.fetchMovies(category.subject, category.year, category.type))
+        categories.forEach(category => {
+            var categoryLoadingPage = this.loadingPages.get(category.subject);
+            if (!categoryLoadingPage || categoryLoadingPage! < 1) {
+                this.loadingPages.set(category.subject, 1);
+                this.props.fetchMovies(category.subject, category.year, category.type)
+            }
+        })
     }
 
     renderMovieItem(item: Movie): JSX.Element {
-
         return (
             <MovieItem movie={item} onMovieItemClick={this.props.selectMovie}></MovieItem>
         );
@@ -38,6 +45,8 @@ class Catalogue extends Component<Props> {
                     data={currentMovieList}
                     renderItem={({item}) => this.renderMovieItem(item)}
                     keyExtractor={(item: Movie) => item.imdbID}
+                    onEndReached={() => this.handleLoadMore(category)}
+                    onEndReachedThreshold={0.2}
                 />
             )
         } else {
@@ -63,6 +72,15 @@ class Catalogue extends Component<Props> {
             </View>
         );
     }
+
+    handleLoadMore(category: Category) {
+        const nextPage = this.props.pages.get(category.subject)! + 1;
+        var categoryLoadingPage = this.loadingPages.get(category.subject);
+        if (!categoryLoadingPage || categoryLoadingPage! < nextPage) {
+            this.loadingPages.set(category.subject, 1);
+            this.props.fetchMovies(category.subject, category.year, category.type, nextPage);
+        }
+    }
 }
 
 const categories: Category[] = [
@@ -79,14 +97,16 @@ const sections = categories.map(category => {
 })
 
 interface Props {
-    fetchMovies(searchText: string, year: number, type: MovieType): any,
+    fetchMovies(searchText: string, year: number, type: MovieType, page?: number): any,
     selectMovie(movie: Movie): any,
-    movies: Map<MovieCategory, Movie[]>
+    movies: Map<MovieCategory, Movie[]>,
+    pages: Map<MovieCategory, number>
 }
 
 const mapStateToProps = (state: any) => {
     return {
-        movies: state.catalogue.movies
+        movies: state.catalogue.movies,
+        pages: state.catalogue.pages
     };
 };
   

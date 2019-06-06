@@ -8,8 +8,21 @@ export default (state = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case Type.LOAD_MOVIES_SUCCESS:
             const updatedMovieMap = new Map<MovieCategory, Movie[]>(state.movies);
-            updatedMovieMap.set(action.payload.category, action.payload.data.data.Search);
-            return {...state, movies: updatedMovieMap}
+            const updatedPagesList = new Map<MovieCategory, number>(state.pages);
+            const results: Movie[] = action.payload.data.data.Search;
+
+            if (action.payload.page === 1) {
+                updatedMovieMap.set(action.payload.category, results);
+            } else {
+                if (results) {
+                    const extendedList = [...updatedMovieMap.get(action.payload.category)!, ...results]
+                    updatedMovieMap.set(action.payload.category, extendedList)
+                }
+            }
+
+            updatedPagesList.set(action.payload.category, action.payload.page);
+
+            return {...state, movies: updatedMovieMap, pages: updatedPagesList}
         default:
             return {...state}
     }

@@ -1,14 +1,16 @@
 import { Movie } from "./Movie";
-import { MovieCategory } from "./Category";
+import { MovieCategory, Category } from "./Category";
 
 export interface State {
     selectedMovie: Movie | null,
     wishlist: Movie[],
-    movies: Map<MovieCategory, Movie[]>
+    movies: Map<MovieCategory, Movie[]>,
+    pages: Map<MovieCategory, number>
 }
 
 export const INITIAL_STATE: State = {
     selectedMovie: null,
     wishlist: [],
-    movies: new Map<MovieCategory, Movie[]>()
+    movies: new Map<MovieCategory, Movie[]>(),
+    pages: new Map<MovieCategory, number>()
 }
