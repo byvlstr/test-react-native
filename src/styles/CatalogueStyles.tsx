@@ -1,5 +1,8 @@
 import RF from "react-native-responsive-fontsize"
 
+export const ITEM_WIDTH = 100;
+export const ITEM_HEIGHT = 150;
+
 export const styles = {
     sectionTitle: {
         fontWeight: "bold",
@@ -11,8 +14,8 @@ export const styles = {
     },
 
     movieItem: {
-        width: 100,
-        height: 150,
+        width: ITEM_WIDTH,
+        height: ITEM_HEIGHT,
         backgroundColor: '#2c2c2c',
         marginRight: 8,
         marginBottom: 8
