@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { Movie } from "../common/movie";
 import { connect } from "react-redux";
 import React from "react";
@@ -19,16 +19,23 @@ class Wishlist extends Component<Props> {
     }
 
     render(): JSX.Element {
-        return (
-            <View>
-                <FlatList
-                    numColumns={3}
-                    data={this.props.wishlist}
-                    renderItem={({item}) => this.renderMovieItem(item)}
-                    keyExtractor={(item: Movie) => item.imdbID}
-                />
-            </View>
-        )
+        if (this.props.wishlist.length === 0) {
+            return (
+                <Text style={styles.emptyWishlist}>Oops... You should add something to your wishlist.</Text>
+            )
+        } else {
+            return (
+                <View>
+                    <FlatList
+                        numColumns={3}
+                        data={this.props.wishlist}
+                        renderItem={({item}) => this.renderMovieItem(item)}
+                        keyExtractor={(item: Movie) => item.imdbID}
+                    />
+                </View>
+            )
+        }
+
     }
 }
 
@@ -43,4 +50,13 @@ export default connect(mapStateToProps, { selectMovie })(Wishlist);
 interface Props {
     wishlist: Movie[],
     selectMovie(movie: Movie): any
+}
+
+const styles = {
+    emptyWishlist: {
+        color: '#fff',
+        marginLeft: 16,
+        marginRight: 16,
+        marginTop: 32
+    }
 }
