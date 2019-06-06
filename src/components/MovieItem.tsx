@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { Image, TouchableHighlight, View, Text } from "react-native";
 import { Movie } from "../common/movie";
 import { styles } from "../styles/CatalogueStyles";
 
-class MovieItem extends Component<Props> {
+class MovieItem extends PureComponent<Props> {
 
     constructor(props: Props) {
         super(props)
