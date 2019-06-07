@@ -101,13 +101,15 @@ interface Props {
     selectMovie(movie: Movie): any,
     movies: Map<MovieCategory, Movie[]>,
     pages: Map<MovieCategory, number>,
-    addToWishlist(movie: Movie): any
+    addToWishlist(movie: Movie): any,
+    error: any
 }
 
 const mapStateToProps = (state: any) => {
     return {
         movies: state.catalogue.movies,
-        pages: state.catalogue.pages
+        pages: state.catalogue.pages,
+        error: state.catalogue.error
     };
 };
   

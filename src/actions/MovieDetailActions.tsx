@@ -21,6 +21,11 @@ export const selectMovie = (movie: Movie) => {
             });
             Actions.moviedetail({title: movieDetail.Title});
         })
-        .catch((error) => console.log(error));
+        .catch((error) =>{
+            dispatch({
+                type: Type.LOAD_MOVIES_ERROR,
+                payload: error.response
+            });
+        });
     };
 }

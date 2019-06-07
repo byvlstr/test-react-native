@@ -24,6 +24,11 @@ export const fetchMovies = (searchText: string, year: number, type: MovieType, p
                 }
             });   
         })
-        .catch((error) => console.log(error));
+        .catch((error) =>{
+            dispatch({
+                type: Type.LOAD_MOVIES_ERROR,
+                payload: error.response
+            });
+        });
     };
 };
