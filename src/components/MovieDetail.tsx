@@ -38,7 +38,7 @@ class MovieDetail extends Component<Props> {
 
     render(): JSX.Element {
         return (
-            <View>
+            <View style={{height: '100%'}}>
                 <View style={styles.headerContainer}>
                     <View style={{width: '60%'}}>
                         <View style={styles.yearRuntimeLine}>
@@ -71,8 +71,8 @@ class MovieDetail extends Component<Props> {
                 <Text style={[styles.whiteText, styles.actorsContainer, styles.descriptionTexts]}>With: {this.props.movie.Actors}</Text>
                 <Text style={[styles.whiteText, styles.descriptionTexts]}>Director: {this.props.movie.Director}</Text>
 
-                <ScrollView>
-                    <Text style={[styles.whiteText, styles.plotContainer, styles.descriptionTexts]}>{this.props.movie.Plot}</Text>
+                <ScrollView style={styles.descriptionScroll}>
+                    <Text style={[styles.whiteText, styles.descriptionTexts]}>{this.props.movie.Plot}</Text>
                 </ScrollView>
             </View>
         )

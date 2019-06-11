@@ -47,10 +47,6 @@ export const styles = {
         marginTop: 16
     },
 
-    plotContainer: {
-        marginTop: 16
-    },
-
     actorsContainer: {
         marginTop: 16
     },
@@ -74,5 +70,11 @@ export const styles = {
 
     languageLabel: {
         width: 88
+    },
+
+    descriptionScroll: {
+        flex: 1,
+        marginTop: 16, 
+        marginBottom: 16
     }
 }
