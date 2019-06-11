@@ -7,7 +7,10 @@ export default (state = INITIAL_STATE, action: Action) => {
     switch (action.type) {
         case Type.ADD_MOVIE_TO_WISHLIST:
             var updatedWishlist: Movie[] = [...state.wishlist];
-            updatedWishlist.push(action.payload);
+            if (!updatedWishlist.find(movie => movie.imdbID === action.payload.imdbID)) {
+                updatedWishlist.push(action.payload);
+            }
+
             return {...state, wishlist: updatedWishlist}
         default:
             return {...state}
