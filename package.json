@@ -10,7 +10,7 @@
     "@types/react-redux": "^7.0.9",
     "axios": "^0.19.0",
     "react": "16.8.3",
-    "react-native": "0.59.8",
+    "react-native": "0.62.3",
     "react-native-responsive-fontsize": "^0.1.8",
     "react-native-router-flux": "^4.0.6",
     "react-redux": "^7.0.3",
